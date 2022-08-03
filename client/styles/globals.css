@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --swiper-theme-color: #fff !important;
+}
+
+body {
+    @apply bg-secondary;
+}
+
+.btn {
+    @apply bg-primary;
+    @apply text-white;
+    @apply border-0;
+    @apply py-2;
+    @apply px-4;
+    @apply rounded-lg;
+    @apply shadow-md;
+}
+
+p, * {
+    color: #fff;
+}

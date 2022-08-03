@@ -1,0 +1,43 @@
+{
+    "kind": "collectionType",
+    "collectionName": "products",
+    "info": {
+        "singularName": "product",
+        "pluralName": "products",
+        "displayName": "Product",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "price": {
+            "type": "decimal"
+        },
+        "reviews": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::review.review",
+            "mappedBy": "product"
+        },
+        "images": {
+            "type": "media",
+            "multiple": true,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "title"
+        }
+    }
+}
