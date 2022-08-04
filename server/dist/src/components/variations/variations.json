@@ -1,0 +1,20 @@
+{
+    "collectionName": "components_variations_variations",
+    "info": {
+        "displayName": "variations",
+        "icon": "align-left",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "variations_list": {
+            "displayName": "variations_list",
+            "type": "component",
+            "repeatable": true,
+            "component": "variations-list.variations-list"
+        },
+        "variations_title": {
+            "type": "string"
+        }
+    }
+}

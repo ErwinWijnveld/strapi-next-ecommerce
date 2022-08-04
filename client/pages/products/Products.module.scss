@@ -1,0 +1,15 @@
+.singleProduct {
+    @apply container;
+    position: relative;
+
+    .singleProductContent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .slider, .right {
+            width: calc(50% - 1.5rem);
+            margin: 0;
+        }
+    }
+}

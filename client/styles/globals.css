@@ -23,3 +23,7 @@ body {
 p, * {
     color: #fff;
 }
+
+#__next {
+    overflow: hidden;
+}

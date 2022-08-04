@@ -19,17 +19,16 @@ const ImageSlider = ({images, className}: any) => {
             slidesPerView={1}
             navigation
             pagination={{ clickable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}
         >
             {images.map((image: any) => 
                 <SwiperSlide key={image.id} className="swiper-slide">
                     <Image
                         src={imageToUrl(image)} 
-                        width="100%" 
-                        height={50}
-                        layout="responsive" 
-                        objectFit="cover"
+                        height={400}
+                        width={500}
+                        layout="responsive"
+                        alt={image.title}
+                        objectFit="cover" 
                     />
                 </SwiperSlide>
             )}

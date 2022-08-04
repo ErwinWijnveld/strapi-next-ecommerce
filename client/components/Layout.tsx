@@ -4,9 +4,9 @@ import Nav from "./Nav"
 import { motion } from 'framer-motion'
 
 const variants = {
-    hidden: { opacity: 0, y: 100 },
-    enter: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -100 },
+    hidden: { opacity: 0, x: 100 },
+    enter: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -100 },
 }
 
 const Layout = ({ user, loading = false, children }:any) => {

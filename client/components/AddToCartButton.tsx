@@ -1,8 +1,14 @@
 import React from 'react'
 
-const AddToCartButton = ({className}:any) => {
+const AddToCartButton = (props:any) => {
+
+    let finalProps = {
+        ...props,
+        className: props.className + ' btn'
+    }
+
     return (
-        <button className={'btn ' + className}>Add to cart</button>
+        <button {...finalProps}>Add to cart</button>
     )
 }
 

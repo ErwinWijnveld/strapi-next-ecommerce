@@ -41,6 +41,15 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "short_description": {
+      "type": "richtext"
+    },
+    "Variations": {
+      "displayName": "Variations",
+      "type": "component",
+      "repeatable": true,
+      "component": "variations.variations"
     }
   }
 }

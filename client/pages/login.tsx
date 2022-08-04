@@ -49,7 +49,7 @@ const Login = () => {
 
     return (
         <Layout user={user}>
-            <div className="h-screen flex items-center justify-center container">
+            <div className="flex items-center justify-center container py-32">
                 <div className="p-8 rounded-xl bg-highlight flex flex-col gap-4 max-w-md w-full">
                     {error && <ErrorText error={error} />}
                     <input 
