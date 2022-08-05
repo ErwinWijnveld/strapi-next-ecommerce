@@ -9502,6 +9502,11 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
+strapi-plugin-populate-deep@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-populate-deep/-/strapi-plugin-populate-deep-0.1.2.tgz#89e9fa0dd10bb1c57336625f765cff98950dafa2"
+  integrity sha512-cYmK5g4QqrGAWjUzEnd6P1XcqeXFcu/2yk/lg3ClQDnp46vb9i03CT7tW2YHz9JSf8g371iq0JPholL1q7Q1CA==
+
 strapi-tiptap-editor@^0.7.14:
   version "0.7.14"
   resolved "https://registry.yarnpkg.com/strapi-tiptap-editor/-/strapi-tiptap-editor-0.7.14.tgz#2e3e6c1532e538c52d2437341f1c96b58bdf46b7"

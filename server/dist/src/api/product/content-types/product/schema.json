@@ -45,8 +45,8 @@
         "short_description": {
             "type": "richtext"
         },
-        "Variations": {
-            "displayName": "Variations",
+        "variations": {
+            "displayName": "variations",
             "type": "component",
             "repeatable": true,
             "component": "variations.variations"

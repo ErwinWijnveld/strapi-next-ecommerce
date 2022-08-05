@@ -1,12 +1,13 @@
 import { ht } from 'date-fns/locale'
 import type { NextPage } from 'next'
 import Layout from '../components/Layout'
+import ProductGrid from '../components/ProductGrid'
 import { useFetchUser } from '../contexts/authContext'
 import { fetcher } from '../lib/api'
 import { getTokenFromLocalCookie, getTokenFromServerCookie } from '../lib/auth'
 import markdownToHtml from '../lib/markdownToHtml'
 
-const Home: NextPage = ({page, content}:any) => {
+const Home: NextPage = ({page, products}:any) => {
 
     const {user, loading} = useFetchUser()
 
@@ -16,10 +17,14 @@ const Home: NextPage = ({page, content}:any) => {
 
     return (
         <Layout user={user}>
-            <div className="container">
-                {pageAttributes.title && <h1 className='text-5xl'>{pageAttributes.title}</h1>}
-                {content && <div className="content" dangerouslySetInnerHTML={{__html: content}} />}
+
+            <div className="container mb-12">
+                {pageAttributes.title && <h1 className='text-5xl uppercase font-bold mb-4'>{pageAttributes.title}</h1>}
+                {pageAttributes?.content && <div className="content max-w-4xl" dangerouslySetInnerHTML={{__html: pageAttributes.content}} />}
             </div>
+            
+            <ProductGrid products={products} />
+
         </Layout>
     )
 }
@@ -36,12 +41,12 @@ export async function getServerSideProps({req, params}: any) {
     ''
     );
 
-    const content = await markdownToHtml(pageResponse.data[0].attributes.content);
+    const productsResponse = await fetcher(`${process.env.NEXT_PUBLIC_STRAPI_URL}/products?populate=*`);
 
     return {
         props: {
             page: pageResponse.data[0],
-            content
+            products: productsResponse
         }
     }
 }

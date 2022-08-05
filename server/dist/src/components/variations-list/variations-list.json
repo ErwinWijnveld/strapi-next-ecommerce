@@ -1,12 +1,12 @@
 {
     "collectionName": "components_variations_list_variations_lists",
     "info": {
-        "displayName": "variations_list",
-        "description": ""
+        "displayName": "variations-list",
+        "icon": "align-justify"
     },
     "options": {},
     "attributes": {
-        "variation_value": {
+        "variation_name": {
             "type": "string"
         }
     }
