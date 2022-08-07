@@ -12,8 +12,6 @@ const ProductPage = ({ product }: any) => {
 	const firstImage = images?.[0];
 	const otherImages = images?.slice(1);
 
-	console.log(productAttributes);
-
 	const handleAddToCart = (product: any) => {
 		// create cart cookie system
 		addProductToCart(product.id, qty);

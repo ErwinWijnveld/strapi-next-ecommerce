@@ -1,16 +1,35 @@
 import Cookies from 'js-cookie';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { fetcher } from '../lib/api';
-import { getUserFromLocalCookie } from '../lib/auth';
-let userState: any;
 
-const Cart = createContext({ user: null, loading: false });
-
-export const CartProvider = ({ value, children }: any) => {
-	return <Cart.Provider value={value}>{children}</Cart.Provider>;
+type ShoppingCartContext = {
+	getItemQuantity: (product: any) => number;
+	increaseItemQuantity: (product: any) => void;
+	decreaseItemQuantity: (product: any) => void;
+	removeItem: (product: any) => void;
+	updateItem: (product: any, qty: number) => void;
+	getTotalQuantity: () => number;
+	getTotalPrice: () => number;
+	cart: any;
 };
 
-export const useCart = () => useContext(Cart);
+const CartContext = createContext({});
+
+export const CartProvider = ({ children, cart }: any) => {
+	const [cartItems, setCartItems] = useState([]);
+
+	return (
+		<CartContext.Provider
+			value={{
+				cart,
+			}}
+		>
+			{children}
+		</CartContext.Provider>
+	);
+};
+
+export const useCart = () => useContext(CartContext);
 
 export const useFetchCart = async (cart: any) => {
 	if (!cart) {

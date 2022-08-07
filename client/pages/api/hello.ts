@@ -1,13 +1,25 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
-  name: string
-}
+import createMollieClient from "@mollie/api-client";
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+export default async function handler(
+  req: any,
+  res: any
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  const mollieClient = createMollieClient({
+    apiKey: 'test_TU5bzGs9FC3AJM4c7gvRUhUsU6Trxk',
+  });
+
+  const payment = await mollieClient.payments.create({
+    amount: {
+      currency: 'EUR',
+      value: '69.99',
+    },
+    description: 'My first payment',
+    redirectUrl: 'https://www.example.com/redirect',
+  });
+
+  const paymentUrl = payment.getPaymentUrl();
+
+  res.status(200).json(req)
 }

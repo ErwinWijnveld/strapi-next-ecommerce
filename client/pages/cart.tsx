@@ -56,8 +56,6 @@ const Cart = ({ cartItems }: any) => {
 		}
 	}, [cart]);
 
-	console.log(cart);
-
 	return (
 		<Layout cart={cart}>
 			<div className="container mx-auto mt-10">
@@ -89,7 +87,7 @@ const Cart = ({ cartItems }: any) => {
 								{cart &&
 									cart.map((product: any, index: any) => {
 										const productAttributes = product?.attributes;
-										console.log('productAttributes', productAttributes);
+
 										return (
 											<div
 												className="flex items-center hover:bg-highlightsecondary -mx-8 px-6 py-5"
@@ -97,17 +95,29 @@ const Cart = ({ cartItems }: any) => {
 											>
 												<div className="flex w-2/5">
 													<div className="w-24">
-														<img
-															className="h-24 object-cover"
-															src={imageToUrl(productAttributes.images.data[0])}
-															alt=""
-														/>
+														<Link href={`/products/${productAttributes.slug}`}>
+															<a>
+																<img
+																	className="h-24 object-cover"
+																	src={imageToUrl(
+																		productAttributes.images.data[0]
+																	)}
+																	alt=""
+																/>
+															</a>
+														</Link>
 													</div>
 													<div className="flex flex-col justify-around ml-4 flex-grow">
 														{productAttributes?.title && (
-															<span className="font-bold text-sm">
-																{productAttributes?.title}
-															</span>
+															<Link
+																href={`/products/${productAttributes.slug}`}
+															>
+																<a>
+																	<span className="font-bold text-sm">
+																		{productAttributes?.title}
+																	</span>
+																</a>
+															</Link>
 														)}
 														<a
 															onClick={() => removeItem(product)}

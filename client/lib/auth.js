@@ -69,8 +69,6 @@ export const getTokenFromServerCookie = (req) => {
         return undefined;
     }
 
-    console.log(req.headers.cookie);
-
     const jwtCookie = req.headers.cookie
         .split(';')
         .find((c) => c.trim().startsWith('jwt='));

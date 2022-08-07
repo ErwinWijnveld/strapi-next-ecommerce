@@ -13,7 +13,7 @@ const variants = {
 const Layout = ({ user, loading = false, children, cart }: any) => {
 	return (
 		<UserProvider value={{ user, loading }}>
-			<CartProvider value={{ cart }}>
+			<CartProvider cart={{ cart }}>
 				<Head>
 					<title>Erwin's site</title>
 				</Head>

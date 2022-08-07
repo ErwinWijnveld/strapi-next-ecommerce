@@ -1,7 +1,49 @@
-import React from 'react';
+import createMollieClient from '@mollie/api-client';
+import Router from 'next/router';
+import React, { useState } from 'react';
 import Layout from '../components/Layout';
+import { useCart, useFetchCart } from '../contexts/cartContext';
+import { getCartFromServerCookie } from '../lib/cart';
+import { formatPrice } from '../utils/price';
+import { imageToUrl } from '../utils/urls';
 
-const checkout = () => {
+const checkout = ({ cartItems }: any) => {
+	const [cart, setCart] = useState(cartItems ? cartItems : null);
+
+	const getTotalQuantity = () => {
+		let total = 0;
+		cart.forEach((item: any) => {
+			total += item.qty;
+		}),
+			(total = total);
+		return total;
+	};
+
+	const getTotalPrice = () => {
+		let total = 0;
+		cart.forEach((item: any) => {
+			total += item.qty * item.attributes.price;
+		}, (total = total));
+		return total;
+	};
+
+	const createPayment = async () => {
+		await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/payment`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				cart: cart,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				Router.push(data);
+			});
+	};
+
 	return (
 		<Layout>
 			<section>
@@ -18,80 +60,67 @@ const checkout = () => {
 								</div>
 
 								<div className="mt-8">
-									<p className="text-2xl font-medium tracking-tight">$99.99</p>
+									<p className="text-2xl font-medium tracking-tight">
+										{formatPrice(getTotalPrice())}
+									</p>
 									<p className="mt-1 text-sm text-gray-500">
-										htmlFor the purchase of
+										For the purchase of
 									</p>
 								</div>
 
 								<div className="mt-12">
 									<div className="flow-root">
 										<ul className="-my-4 divide-y divide-gray-200">
-											<li className="flex items-center justify-between py-4">
-												<div className="flex items-start">
-													<img
-														className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
-														src="https://images.unsplash.com/photo-1588099768531-a72d4a198538?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvdGhpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-														alt=""
-													/>
+											{cart &&
+												cart.map((product: any, index: any) => {
+													const productAttributes = product?.attributes;
+													return (
+														<li className="flex items-center justify-between py-4">
+															<div className="flex items-start">
+																{productAttributes?.images && (
+																	<img
+																		className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
+																		src={imageToUrl(
+																			productAttributes?.images.data[0]
+																		)}
+																		alt=""
+																	/>
+																)}
 
-													<div className="ml-4">
-														<p className="text-sm">Vibrant Trainers</p>
+																<div className="ml-4">
+																	{productAttributes?.title && (
+																		<p className="text-sm">
+																			{productAttributes?.title}
+																		</p>
+																	)}
 
-														<dl className="mt-1 space-y-1 text-xs text-gray-500">
-															<div>
-																<dt className="inline">Color:</dt>
-																<dd className="inline">Blue</dd>
+																	<dl className="mt-1 space-y-1 text-xs text-gray-500">
+																		<div>
+																			<dt className="inline">Color:</dt>
+																			<dd className="inline">Blue</dd>
+																		</div>
+
+																		<div>
+																			<dt className="inline">Size:</dt>
+																			<dd className="inline">UK 10</dd>
+																		</div>
+																	</dl>
+																</div>
 															</div>
 
 															<div>
-																<dt className="inline">Size:</dt>
-																<dd className="inline">UK 10</dd>
+																{productAttributes?.price && (
+																	<p className="text-sm">
+																		{formatPrice(productAttributes?.price)}
+																		<small className="text-gray-500">
+																			x{product?.qty}
+																		</small>
+																	</p>
+																)}
 															</div>
-														</dl>
-													</div>
-												</div>
-
-												<div>
-													<p className="text-sm">
-														$49.99
-														<small className="text-gray-500">x1</small>
-													</p>
-												</div>
-											</li>
-
-											<li className="flex items-center justify-between py-4">
-												<div className="flex items-start">
-													<img
-														className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
-														src="https://images.unsplash.com/photo-1588099768531-a72d4a198538?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvdGhpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-														alt=""
-													/>
-
-													<div className="ml-4">
-														<p className="text-sm">Vibrant Trainers</p>
-
-														<dl className="mt-1 space-y-1 text-xs text-gray-500">
-															<div>
-																<dt className="inline">Color:</dt>
-																<dd className="inline">Blue</dd>
-															</div>
-
-															<div>
-																<dt className="inline">Size:</dt>
-																<dd className="inline">UK 10</dd>
-															</div>
-														</dl>
-													</div>
-												</div>
-
-												<div>
-													<p className="text-sm">
-														$25
-														<small className="text-gray-500">x2</small>
-													</p>
-												</div>
-											</li>
+														</li>
+													);
+												})}
 										</ul>
 									</div>
 								</div>
@@ -100,7 +129,7 @@ const checkout = () => {
 
 						<div className="py-12 bg-highlight md:py-24">
 							<div className="max-w-lg px-4 mx-auto lg:px-8">
-								<form className="grid grid-cols-6 gap-4">
+								<div className="grid grid-cols-6 gap-4">
 									<div className="col-span-3">
 										<label
 											className="block mb-1 text-sm text-white"
@@ -267,11 +296,15 @@ const checkout = () => {
 									</fieldset>
 
 									<div className="col-span-6">
-										<button className="btn w-full" type="submit">
+										<button
+											onClick={() => createPayment()}
+											className="btn w-full"
+											type="submit"
+										>
 											Pay Now
 										</button>
 									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -282,3 +315,15 @@ const checkout = () => {
 };
 
 export default checkout;
+
+export async function getServerSideProps({ req, params }: any) {
+	const cart = getCartFromServerCookie(req);
+
+	const cartItems = await useFetchCart(cart);
+
+	return {
+		props: {
+			cartItems: cartItems,
+		},
+	};
+}
