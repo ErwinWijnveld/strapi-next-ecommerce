@@ -5,7 +5,7 @@ import Variations from './Variations';
 
 const ProductPage = ({ product }: any) => {
 	const productAttributes = product?.attributes;
-	const [qty, setQty] = useState(0 as any);
+	const [qty, setQty] = useState(1 as any);
 
 	// images
 	const images = productAttributes?.images?.data;

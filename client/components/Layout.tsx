@@ -1,32 +1,35 @@
-import Head from "next/head"
-import { UserProvider } from "../contexts/authContext"
-import Nav from "./Nav"
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
+import Head from 'next/head';
+import { UserProvider } from '../contexts/authContext';
+import { CartProvider } from '../contexts/cartContext';
+import Nav from './Nav';
 
 const variants = {
-    hidden: { opacity: 0, x: 100 },
-    enter: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -100 },
-}
+	hidden: { opacity: 0, x: 100 },
+	enter: { opacity: 1, x: 0 },
+	exit: { opacity: 0, x: -100 },
+};
 
-const Layout = ({ user, loading = false, children }:any) => {
-    return (
-        <UserProvider value={{user, loading}}>
-            <Head>
-                <title>Erwin's site</title>
-            </Head>
-            <Nav/>
-            <motion.main
-                initial="hidden"
-                animate="enter"
-                exit="exit"
-                variants={variants}
-                transition={{ duration: 0.5, type: "easeInOut" }}
-            >
-                {children}
-            </motion.main>
-        </UserProvider>
-    )
-}
+const Layout = ({ user, loading = false, children, cart }: any) => {
+	return (
+		<UserProvider value={{ user, loading }}>
+			<CartProvider value={{ cart }}>
+				<Head>
+					<title>Erwin's site</title>
+				</Head>
+				<Nav />
+				<motion.main
+					initial="hidden"
+					animate="enter"
+					exit="exit"
+					variants={variants}
+					transition={{ duration: 0.5, type: 'easeInOut' }}
+				>
+					{children}
+				</motion.main>
+			</CartProvider>
+		</UserProvider>
+	);
+};
 
-export default Layout
+export default Layout;

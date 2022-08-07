@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_variations_list_variations_lists",
+  "info": {
+    "displayName": "variations-list",
+    "icon": "american-sign-language-interpreting"
+  },
+  "options": {},
+  "attributes": {
+    "variation_name": {
+      "type": "string"
+    }
+  }
+}
